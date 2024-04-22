@@ -1,6 +1,7 @@
-// Register.js
 import React, { useState } from 'react';
 import AuthService from '../services/AuthService';
+import { FaTwitter, FaFacebook, FaUser, FaEnvelope, FaLock, FaPhone, FaBriefcase } from 'react-icons/fa';
+import '../styles/Register.css'; // Import the CSS styles
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -13,9 +14,8 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-        // console.log({ email, password, firstName, lastName, role });
       await AuthService.register({ email, password, firstName, lastName, role });
-      // Redirect to the dashboard or homepage after successful registration
+      // Redirect logic here
     } catch (error) {
       setError('Registration failed. Please try again.');
       console.error('Registration failed:', error.message);
@@ -23,42 +23,83 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleRegister}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="">Select Role</option>
-          <option value="ROLE_ADMIN">Admin</option>
-          <option value="ROLE_CLIENT">Client</option>
-          <option value="ROLE_DEPOSIT_MANAGER">Manager Depozit</option>
-        </select>
-        <button type="submit">Register</button>
+    <div className="register-container">
+      <h2 className="register-title">Create Account</h2>
+      <div className="social-login">
+        <button className="btn btn-info btn-twitter">
+          <FaTwitter /> Login via Twitter
+        </button>
+        <button className="btn btn-primary btn-facebook">
+          <FaFacebook /> Login via Facebook
+        </button>
+      </div>
+      <div className="text-or">OR</div>
+      
+      <form onSubmit={handleRegister} className="register-form">
+        <div className="input-group">
+          <FaUser className="input-icon" />
+          <input
+            type="text"
+            className="form-input"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <FaUser className="input-icon" />
+          <input
+            type="text"
+            className="form-input"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <FaEnvelope className="input-icon" />
+          <input
+            type="email"
+            className="form-input"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <FaLock className="input-icon" />
+          <input
+            type="password"
+            className="form-input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <FaLock className="input-icon" />
+          <select 
+            className="form-input"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          >
+            <option value="">Select Role</option>
+            <option value="ROLE_ADMIN">Admin</option>
+            <option value="ROLE_CLIENT">Client</option>
+            <option value="ROLE_DEPOSIT_MANAGER">Manager Depozit</option>
+          </select>
+        </div>
+        <button type="submit" className="btn btn-create-account">Create Account</button>
       </form>
+      
+      <div className="login-link">
+        Have an account? <a href="/login">Log In</a>
+      </div>
     </div>
   );
 }

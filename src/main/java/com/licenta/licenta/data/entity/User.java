@@ -28,9 +28,8 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     public User() {
