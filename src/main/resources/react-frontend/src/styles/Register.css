@@ -1,0 +1,92 @@
+.register-container {
+    background-color: white;
+    max-width: 350px;
+    margin: 50px auto;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .register-title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .social-login .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 44px;
+  }
+  
+  .social-login .btn-twitter {
+    background-color: #55acee;
+    border: none;
+  }
+  
+  .social-login .btn-facebook {
+    background-color: #3b5998;
+    border: none;
+  }
+  
+  .social-login .btn .fa-twitter,
+  .social-login .btn .fa-facebook {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+  
+  .text-or {
+    text-align: center;
+    margin: 20px 0;
+    border-bottom: 1px solid #eee;
+    line-height: 0.1em;
+  }
+  
+  .text-or span {
+    background: #fff;
+    padding: 0 10px;
+  }
+  
+  .input-group {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    color: #999;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .btn-create-account {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+  }
+  
+  .btn-create-account:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .login-link a {
+    color: #007bff;
+  }
+  
