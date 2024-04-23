@@ -39,6 +39,14 @@ public class CartService {
         User user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Product product = productsRepo.findById(UUID.fromString(cartItemDto.getProductName())).orElseThrow(() -> new RuntimeException("Product not found"));
 
+        if (product.getStockQuantity() < cartItemDto.getQuantity()) {
+            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        }
+
+        // Place a hold on the stock.
+        product.setStockQuantity(product.getStockQuantity() - cartItemDto.getQuantity());
+        productsRepo.save(product);
+
         Cart cart = cartsRepo.findByUserId(userId).orElse(null);
         if (cart == null) {
             // If not, create a new cart, save it, and set it to the user
@@ -73,10 +81,16 @@ public class CartService {
         } else {
             throw new RuntimeException("Unauthorized access to cart item");
         }
+        Product product = item.getProduct();
+        product.setStockQuantity(product.getStockQuantity() + item.getQuantity());
+        productsRepo.save(product);
+
+        // Remove the item from the cart
+        cartItemsRepo.delete(item);
     }
 
     @Transactional
-    public CartDto updateCartItem(UUID userId, UUID cartItemId, int quantity) {
+    public CartDto updateCartItem(UUID userId, UUID cartItemId, int newQuantity) {
         CartItem cartItem = cartItemsRepo.findById(cartItemId)
                 .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
@@ -85,12 +99,28 @@ public class CartService {
             throw new RuntimeException("Cart item does not belong to user");
         }
 
-        cartItem.setQuantity(quantity);
+        Product product = cartItem.getProduct();
+        int currentQuantity = cartItem.getQuantity();
+        int quantityDifference = newQuantity - currentQuantity;
+
+        // Check if there is enough stock to increase the quantity
+        if (quantityDifference > 0 && product.getStockQuantity() < quantityDifference) {
+            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        }
+
+        // Update the cart item quantity
+        cartItem.setQuantity(newQuantity);
         cartItemsRepo.save(cartItem);
 
+        // Update the product stock
+        product.setStockQuantity(product.getStockQuantity() - quantityDifference);
+        productsRepo.save(product);
+
+        // Refresh the cart and return the updated DTO
         Cart cart = cartItem.getCart();
         return convertCartToDto(cart);
     }
+
 
     public CartDto getCartByUserId(UUID userId) {
         Cart cart = cartsRepo.findByUserId(userId)
