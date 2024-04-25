@@ -6,6 +6,7 @@ import com.licenta.licenta.data.entity.Cart;
 import com.licenta.licenta.data.entity.CartItem;
 import com.licenta.licenta.data.entity.Product;
 import com.licenta.licenta.data.entity.User;
+import com.licenta.licenta.exception.InsufficientStockException;
 import com.licenta.licenta.repo.CartItemsRepo;
 import com.licenta.licenta.repo.CartsRepo;
 import com.licenta.licenta.repo.ProductsRepo;
@@ -40,7 +41,7 @@ public class CartService {
         Product product = productsRepo.findById(UUID.fromString(cartItemDto.getProductName())).orElseThrow(() -> new RuntimeException("Product not found"));
 
         if (product.getStockQuantity() < cartItemDto.getQuantity()) {
-            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+            throw new InsufficientStockException("Insufficient stock for product: " + product.getName());
         }
 
         // Place a hold on the stock.
@@ -105,7 +106,7 @@ public class CartService {
 
         // Check if there is enough stock to increase the quantity
         if (quantityDifference > 0 && product.getStockQuantity() < quantityDifference) {
-            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+            throw new InsufficientStockException("Insufficient stock for product: " + product.getName());
         }
 
         // Update the cart item quantity
