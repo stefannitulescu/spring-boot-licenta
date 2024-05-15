@@ -1,0 +1,55 @@
+.navbar {
+    background-color: #4CAF50; /* Fresh green background */
+    color: white;
+    padding: 10px 15px; /* Reduced padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center; /* Ensures content is aligned vertically in the center */
+    display: flex; /* Ensures the navbar is laid out as a flexible box */
+}
+
+.navbar-logo img {
+    height: 50px; /* Adjusted height to fit the navbar */
+    width: 70px; /* Maintains the aspect ratio */
+    vertical-align: middle; /* Aligns the logo vertically center */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.navbar-item {
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar-item:hover, .navbar-btn:hover {
+    background-color: #388E3C; /* Darker green on hover */
+}
+
+.navbar-btn {
+    background-color: #388E3C; /* Darker green for buttons */
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-btn:hover {
+    background-color: #4CAF50; /* Fresh green background on hover */
+    color: white;
+    border: 2px solid white; /* Add a white border for better visibility */
+}
