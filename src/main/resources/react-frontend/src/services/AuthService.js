@@ -6,7 +6,7 @@ class AuthService {
     console.log(registerData);
 
     try {
-        console.log("sunt aici", registerData );
+        // console.log("sunt aici", registerData );
       const response = await axios.post('http://localhost:8080/api/v1/auth/register', registerData);
       return response.data;
     } catch (error) {
@@ -18,6 +18,8 @@ class AuthService {
   static async login(loginData) {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/authenticate', loginData);
+      localStorage.setItem('access_token', response.data.access_token); // Store the access token
+      localStorage.setItem('refresh_token', response.data.refresh_token); // Store the refresh token
       return response.data;
       
     } catch (error) {

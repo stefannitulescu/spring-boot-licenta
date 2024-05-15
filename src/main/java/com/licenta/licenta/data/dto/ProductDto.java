@@ -8,6 +8,17 @@ public class ProductDto {
     private double price;
     private int stockQuantity;
     private String categoryName;
+    public ProductDto() {
+
+    };
+    public ProductDto(String name, String description, String category, String imageUrl, double price, int stockQuantity) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
 
     public String getName() {
         return name;

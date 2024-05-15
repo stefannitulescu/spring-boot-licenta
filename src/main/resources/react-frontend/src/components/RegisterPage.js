@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthService from '../services/AuthService';
-import { FaTwitter, FaFacebook, FaUser, FaEnvelope, FaLock, FaPhone, FaBriefcase } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import '../styles/Register.css'; // Import the CSS styles
 
 function Register() {
@@ -25,16 +25,7 @@ function Register() {
   return (
     <div className="register-container">
       <h2 className="register-title">Create Account</h2>
-      <div className="social-login">
-        <button className="btn btn-info btn-twitter">
-          <FaTwitter /> Login via Twitter
-        </button>
-        <button className="btn btn-primary btn-facebook">
-          <FaFacebook /> Login via Facebook
-        </button>
-      </div>
-      <div className="text-or">OR</div>
-      
+
       <form onSubmit={handleRegister} className="register-form">
         <div className="input-group">
           <FaUser className="input-icon" />

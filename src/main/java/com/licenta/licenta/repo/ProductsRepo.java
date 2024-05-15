@@ -1,10 +1,16 @@
 package com.licenta.licenta.repo;
 
+import com.licenta.licenta.data.dto.ProductDto;
 import com.licenta.licenta.data.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ProductsRepo extends JpaRepository<Product, UUID> {
     // Additional custom methods can be added here
+
+    @Query("select new com.licenta.licenta.data.dto.ProductDto(p.name, p.description, p.category.name, p.imageUrl, p.price, p.stockQuantity) from Product p")
+    List<ProductDto> findAllProducts();
 }

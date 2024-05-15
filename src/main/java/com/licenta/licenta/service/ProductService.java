@@ -9,7 +9,9 @@ import com.licenta.licenta.repo.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -53,7 +55,9 @@ public class ProductService {
 
         return convertToDto(product);
     }
-
+    public List<ProductDto> getAllProducts() {
+        return productsRepo.findAllProducts();
+    }
     public void deleteProduct(UUID id) {
         productsRepo.deleteById(id);
     }

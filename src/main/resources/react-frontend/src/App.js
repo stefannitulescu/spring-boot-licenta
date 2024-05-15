@@ -4,15 +4,21 @@ import './styles/App.css';
 import Home from './pages/Home';
 import Login from './components/LoginPage';
 import Register from './components/RegisterPage';
+import Landing from './pages/LandingPage';
+import Navbar from './components/Navbar';
 
 function App() {
+  const isAdmin = true;
+
   return (
     <div className="App">
  <Router>
+   <Navbar isAdmin={isAdmin} />
    <Switch>
-        <Route exact path="/"><Home /></Route>
+        <Route exact path="/home"><Home /></Route>
         <Route exact path="/login"><Login /></Route>
         <Route exact path="/register"><Register /></Route>
+        <Route exact path="/"><Landing /></Route>
    </Switch>
  </Router>
     </div>
