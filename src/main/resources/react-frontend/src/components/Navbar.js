@@ -11,7 +11,7 @@ const Navbar = ({ isAdmin }) => {
                 </Link>
                 <ul className="navbar-menu">
                     <li><Link to="/home" className="navbar-item">Home</Link></li>
-                    <li><Link to="/features" className="navbar-item">Features</Link></li>
+                    <li><Link to="/products" className="navbar-item">Products</Link></li>
                     <li><Link to="/services" className="navbar-item">Services</Link></li>
                     <li><Link to="/our-work" className="navbar-item">Our Work</Link></li>
                     {isAdmin && (
