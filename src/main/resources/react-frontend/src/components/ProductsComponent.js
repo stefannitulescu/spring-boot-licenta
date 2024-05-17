@@ -1,4 +1,3 @@
-// ProductsComponent.js
 import React, { useState, useEffect } from 'react';
 import ProductService from '../services/ProductService';
 import '../styles/ProductsComponent.css';
@@ -25,11 +24,14 @@ function ProductsComponent() {
       <div className="products-container">
         {products.map((product, index) => (
           <div key={index} className="product-card">
-            <img src={product.imageUrl} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <p>Available: {product.stockQuantity}</p>
+            <img src={'file2.png'} alt={product.name} /> 
+            <div className="product-details">
+              <h3>{product.name}</h3>
+              <p>{product.description || 'No description available'}</p>
+              <p className="product-price">Price: ${product.price}</p>
+              <p>Available: {product.stockQuantity}</p>
+              <button className="btn-add-to-cart">Add to Cart</button>
+            </div>
           </div>
         ))}
       </div>
