@@ -7,6 +7,7 @@ import Register from './components/RegisterPage';
 import Landing from './pages/LandingPage';
 import ProductsComponent from './components/ProductsComponent';
 import FilterSidebar from './components/FilterSidebar';
+import ManageProducts from './components/ManageProducts';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './styles/App.css';
 
@@ -51,7 +52,7 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
                 <ProductsComponent filters={filters} />
               </div>
             </Route>
-            <Route path="/admin/products" component={ProductsComponent} />
+            <Route path="/admin/products" component={ManageProducts} />
             <Route path="/admin/users" component={ProductsComponent} />
           </Switch>
         </div>
