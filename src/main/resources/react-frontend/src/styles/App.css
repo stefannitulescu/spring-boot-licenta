@@ -52,3 +52,26 @@
   flex-grow: 1;
   padding: 20px;
 }
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.products-page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.filter-sidebar {
+  width: 250px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.products-container {
+  flex-grow: 1;
+  padding: 20px;
+}

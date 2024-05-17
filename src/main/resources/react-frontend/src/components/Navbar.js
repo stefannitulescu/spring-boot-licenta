@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/Navbar.css';
 
 const Navbar = ({ isAdmin, history }) => {
-  const isLoggedIn = AuthService.isAuthenticated();
-  const userEmail = AuthService.getUserEmail();
+  const { isAuthenticated, userEmail, logout } = useAuth();
 
   const handleLogout = () => {
-    AuthService.logout();
+    logout();
     history.push('/login');
   };
 
@@ -29,7 +28,7 @@ const Navbar = ({ isAdmin, history }) => {
               <li><Link to="/admin/users" className="navbar-item">Manage Users</Link></li>
             </>
           )}
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <>
               <li className="navbar-item">{userEmail}</li>
               <li className="navbar-item" onClick={handleLogout}>Logout</li>

@@ -1,9 +1,8 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 class AuthService {
   static async register(registerData) {
-    console.log(registerData);
-
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/register', registerData);
       return response.data;
@@ -24,7 +23,6 @@ class AuthService {
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
 
       return response.data;
-      
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -49,6 +47,20 @@ class AuthService {
   static isAuthenticated() {
     return !!this.getAccessToken();
   }
+
+  static getUserRole() {
+    const token = this.getAccessToken();
+    if (!token) return null;
+    
+    const decodedToken = jwtDecode(token);
+    return decodedToken.roles ? decodedToken.roles[0] : null; // assuming roles is an array
+  }
+}
+
+// Set the token if it exists in local storage when the app initializes
+const token = AuthService.getAccessToken();
+if (token) {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 export default AuthService;

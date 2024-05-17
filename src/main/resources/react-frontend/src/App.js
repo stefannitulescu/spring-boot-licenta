@@ -7,11 +7,10 @@ import Register from './components/RegisterPage';
 import Landing from './pages/LandingPage';
 import ProductsComponent from './components/ProductsComponent';
 import FilterSidebar from './components/FilterSidebar';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './styles/App.css';
 
 function App() {
-  const isAdmin = true;
-
   const [filters, setFilters] = useState({});
 
   const handleSortChange = (sortOrder) => {
@@ -23,17 +22,37 @@ function App() {
   };
 
   return (
+    <AuthProvider>
+      <MainApp 
+        handleSortChange={handleSortChange} 
+        handleFilterChange={handleFilterChange} 
+        filters={filters} 
+      />
+    </AuthProvider>
+  );
+}
+
+function MainApp({ handleSortChange, handleFilterChange, filters }) {
+  const { isAdmin } = useAuth();
+
+  return (
     <div className="App">
       <Router>
         <Navbar isAdmin={isAdmin} />
         <div className="content-area">
-          <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/products" component={ProductsComponent} />
+            <Route path="/products">
+              <div className="products-page">
+                <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
+                <ProductsComponent filters={filters} />
+              </div>
+            </Route>
+            <Route path="/admin/products" component={ProductsComponent} />
+            <Route path="/admin/users" component={ProductsComponent} />
           </Switch>
         </div>
       </Router>
