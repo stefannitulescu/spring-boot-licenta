@@ -1,6 +1,7 @@
 package com.licenta.licenta.service;
 
 import com.licenta.licenta.data.dto.RegisterUserDto;
+import com.licenta.licenta.data.dto.UserDto;
 import com.licenta.licenta.data.entity.User;
 import com.licenta.licenta.data.enums.RoleEnum;
 import com.licenta.licenta.exception.RestApiException;
@@ -9,7 +10,10 @@ import com.licenta.licenta.repo.UsersRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
 
@@ -28,6 +32,18 @@ public class UserService {
         return usersRepo.findByEmail(email);
     }
 
+    public List<UserDto> getAllUsers() {
+        List<User> users = usersRepo.findAll();
+
+        return users.stream()
+                .map(user -> new UserDto(
+                        user.getEmail(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getRole().getCode().name()
+                ))
+                .collect(Collectors.toList());
+    }
     public User createUser(final RegisterUserDto dto) {
         User user = new User();
         user.setEmail(dto.getEmail());

@@ -24,6 +24,7 @@ const ManageProducts = () => {
       <table className="products-table">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Category</th>
             <th>Price</th>
@@ -34,6 +35,7 @@ const ManageProducts = () => {
         <tbody>
           {products.map((product, index) => (
             <tr key={index}>
+              <td>{index + 1}</td>
               <td>{product.name}</td>
               <td>{product.category}</td>
               <td>${product.price}</td>
