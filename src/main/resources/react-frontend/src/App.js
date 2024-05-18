@@ -7,10 +7,13 @@ import Register from './components/RegisterPage';
 import Landing from './pages/LandingPage';
 import ProductsComponent from './components/ProductsComponent';
 import FilterSidebar from './components/FilterSidebar';
+import ProtectedRoute from './components/ProtectedRoute';
 import ManageProducts from './components/ManageProducts';
+import EditProduct from './pages/EditProduct';
 import ManageUsers from './components/ManageUsers';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [filters, setFilters] = useState({});
@@ -53,8 +56,9 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
                 <ProductsComponent filters={filters} />
               </div>
             </Route>
-            <Route path="/admin/products" component={ManageProducts} />
-            <Route path="/admin/users" component={ManageUsers} />
+            <ProtectedRoute path="/admin/products" exact component={ManageProducts} />
+            <ProtectedRoute path="/admin/products/edit/:id" component={EditProduct} />
+            <ProtectedRoute path="/admin/users" component={ManageUsers} />
           </Switch>
         </div>
       </Router>

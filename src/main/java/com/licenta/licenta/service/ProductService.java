@@ -42,7 +42,7 @@ public class ProductService {
         Product product = productsRepo.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Product not found"));
 
-        Category category = categoriesRepo.findByName(productDto.getCategoryName())
+        Category category = categoriesRepo.findByName(productDto.getCategory())
                 .orElseThrow(() -> new IllegalStateException("Category not found"));
 
         product.setName(productDto.getName());
@@ -58,8 +58,8 @@ public class ProductService {
     public List<ProductDto> getAllProducts() {
         return productsRepo.findAllProducts();
     }
-    public void deleteProduct(UUID id) {
-        productsRepo.deleteById(id);
+    public void deleteProduct(String id) {
+        productsRepo.deleteById(UUID.fromString(id));
     }
 
     private ProductDto convertToDto(Product product) {

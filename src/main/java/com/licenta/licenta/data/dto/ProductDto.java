@@ -1,6 +1,9 @@
 package com.licenta.licenta.data.dto;
 
+import java.util.UUID;
+
 public class ProductDto {
+    private UUID id;
     private String name;
     private String description;
     private String category;
@@ -11,13 +14,23 @@ public class ProductDto {
     public ProductDto() {
 
     };
-    public ProductDto(String name, String description, String category, String imageUrl, double price, int stockQuantity) {
+
+    public ProductDto(UUID id, String name, String description, String category, String imageUrl, double price, int stockQuantity) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
         this.imageUrl = imageUrl;
         this.price = price;
         this.stockQuantity = stockQuantity;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {

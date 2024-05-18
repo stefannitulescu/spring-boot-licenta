@@ -27,7 +27,6 @@
     public class SecurityConfig {
 
         private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",
-    //            "/api/v1/**",
                 "/v2/api-docs",
                 "/v3/api-docs",
                 "/v3/api-docs/**",
@@ -48,30 +47,6 @@
             this.logoutHandler = logoutHandler;
         }
 
-//        @Bean
-//        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//            http
-//                    .csrf(AbstractHttpConfigurer::disable)
-//                    .authorizeHttpRequests(req ->
-//                            req.requestMatchers(WHITE_LIST_URL)
-//                                    .permitAll()
-//                                    .requestMatchers("/api/v1/category/**").hasAnyRole("ADMIN")
-//                                    .requestMatchers("/api/v1/products/**").hasAnyRole("ADMIN")
-//                                    .anyRequest()
-//                                    .authenticated()
-//                    )
-//                    .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-//                    .authenticationProvider(authenticationProvider)
-//                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//                    .logout(logout ->
-//                            logout.logoutUrl("/api/v1/auth/logout")
-//                                    .addLogoutHandler(logoutHandler)
-//                                    .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-//                    )
-//            ;
-//
-//            return http.build();
-//        }
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
@@ -79,8 +54,6 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(req ->
                     req.requestMatchers(WHITE_LIST_URL).permitAll()
-                            .requestMatchers("/api/v1/category/**").hasAnyRole("ADMIN")
-                            .requestMatchers("/api/v1/products/**").hasAnyRole("ADMIN")
                             .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

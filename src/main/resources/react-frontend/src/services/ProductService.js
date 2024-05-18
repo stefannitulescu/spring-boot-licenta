@@ -1,18 +1,58 @@
-// ProductService.js
 import axios from 'axios';
-
-// Set token for development/testing (this should be replaced by dynamic token after login in production)
-// const token = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6InNuaXR1bGVzY3UyMDAxQHlhaG9vLmNvbSIsImlhdCI6MTcxNTk2NTYwNSwiZXhwIjoxNzE2MDUyMDA1fQ.1GVvnlDrw9ETm2AgMHNHmowbJt7R9VFdbiYE4jnAy90';
-
-// axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 class ProductService {
   static async getAllProducts() {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/products/all');
+      const response = await axios.get('http://localhost:8080/api/v1/products/all', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      console.log("products", response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching products:', error);
+      throw error;
+    }
+  }
+
+  static async createProduct(product) {
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/products/', product, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
+    }
+  }
+
+  static async updateProduct(id, product) {
+    try {
+      const response = await axios.put(`http://localhost:8080/api/v1/products/${id}`, product, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
+    }
+  }
+
+  static async deleteProduct(id) {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+    } catch (error) {
+      console.error('Error deleting product:', error);
       throw error;
     }
   }
