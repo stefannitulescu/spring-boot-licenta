@@ -37,8 +37,9 @@ public class CartService {
 
     @Transactional
     public CartDto addToCart(UUID userId, CartItemDto cartItemDto) {
+        System.out.println(userId.toString() +  cartItemDto);
         User user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Product product = productsRepo.findById(UUID.fromString(cartItemDto.getProductName())).orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productsRepo.findById(cartItemDto.getProductId()).orElseThrow(() -> new RuntimeException("Product not found"));
 
         if (product.getStockQuantity() < cartItemDto.getQuantity()) {
             throw new InsufficientStockException("Insufficient stock for product: " + product.getName());

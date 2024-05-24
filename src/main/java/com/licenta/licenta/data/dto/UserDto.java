@@ -15,11 +15,20 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(String email, String firstName, String lastName, String role) {
+    public UserDto(UUID id, String email, String firstName, String lastName, String role) {
+        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getEmail() {

@@ -4,12 +4,14 @@ import com.licenta.licenta.data.dto.ProductDto;
 import com.licenta.licenta.data.entity.Category;
 import com.licenta.licenta.data.entity.Product;
 import com.licenta.licenta.exception.CategoryNotFoundException;
+import com.licenta.licenta.exception.ProductNotFoundException;
 import com.licenta.licenta.repo.CategoriesRepo;
 import com.licenta.licenta.repo.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,8 +26,8 @@ public class ProductService {
         this.categoriesRepo = categoriesRepo;
     }
     public ProductDto createProduct(ProductDto productDto) {
-        Category category = categoriesRepo.findByName(productDto.getCategoryName())
-                .orElseThrow(() -> new CategoryNotFoundException("Category with id " + productDto.getCategoryName() + " does not exist"));
+        Category category = categoriesRepo.findByName(productDto.getCategory())
+                .orElseThrow(() -> new CategoryNotFoundException("Category with id " + productDto.getCategory() + " does not exist"));
 
         Product product = new Product();
         product.setName(productDto.getName());
@@ -36,6 +38,11 @@ public class ProductService {
         product.setStockQuantity(productDto.getStockQuantity());
         productsRepo.save(product);
         return convertToDto(product);
+    }
+
+    public ProductDto getProductById(UUID id) {
+        Optional<ProductDto> product = productsRepo.findProductById(id);
+        return product.orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 
     public ProductDto updateProduct(UUID id, ProductDto productDto) {

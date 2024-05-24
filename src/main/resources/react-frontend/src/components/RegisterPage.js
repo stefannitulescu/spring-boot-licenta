@@ -85,7 +85,7 @@ function Register() {
             <option value="ROLE_DEPOSIT_MANAGER">Manager Depozit</option>
           </select>
         </div>
-        <button type="submit" className="btn btn-create-account">Create Account</button>
+        <button type="submit" className="btn btn-primary btn-create-account">Create Account</button>
       </form>
       
       <div className="login-link">

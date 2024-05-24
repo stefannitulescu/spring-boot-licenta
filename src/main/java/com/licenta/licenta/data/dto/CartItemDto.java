@@ -1,9 +1,20 @@
 package com.licenta.licenta.data.dto;
 
+import java.util.UUID;
+
 public class CartItemDto {
+    private UUID productId;
     private String productName;
     private double price;
     private int quantity;
+
+    public UUID getProductId() {
+        return productId;
+    }
+
+    public void setProductId(UUID productId) {
+        this.productId = productId;
+    }
 
     public String getProductName() {
         return productName;

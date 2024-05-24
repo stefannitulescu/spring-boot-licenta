@@ -1,7 +1,9 @@
 package com.licenta.licenta.repo;
 
 import com.licenta.licenta.data.entity.Token;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -17,5 +19,9 @@ public interface TokensRepo extends JpaRepository<Token, UUID> {
       """)
     List<Token> findAllValidTokenByUser(UUID id);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Token t WHERE t.user.id = :userId")
+    void deleteByUserId(UUID userId);
     Optional<Token> findByToken(String token);
 }

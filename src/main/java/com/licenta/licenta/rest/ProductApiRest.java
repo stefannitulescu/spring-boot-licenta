@@ -33,6 +33,13 @@ public class ProductApiRest {
         return ResponseEntity.ok(products); // 200 OK with the list of products
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')") // Adjust role checking as needed
+    public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id) {
+        ProductDto product = productService.getProductById(id);
+        return ResponseEntity.ok(product); // 200 OK with the product
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable UUID id, @RequestBody ProductDto productDto) {

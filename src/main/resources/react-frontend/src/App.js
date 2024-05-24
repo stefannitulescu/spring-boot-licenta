@@ -5,11 +5,13 @@ import Home from './pages/Home';
 import Login from './components/LoginPage';
 import Register from './components/RegisterPage';
 import Landing from './pages/LandingPage';
+import ProductDetails from './pages/ProductDetails';
+import CartPage from './pages/CartPage';
+import EditProduct from './pages/EditProduct';
 import ProductsComponent from './components/ProductsComponent';
 import FilterSidebar from './components/FilterSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import ManageProducts from './components/ManageProducts';
-import EditProduct from './pages/EditProduct';
 import ManageUsers from './components/ManageUsers';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './styles/App.css';
@@ -50,12 +52,14 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/products">
+            <Route exact  path="/products">
               <div className="products-page">
                 <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
                 <ProductsComponent filters={filters} />
               </div>
             </Route>
+            <Route path="/products/:id" component={ProductDetails} />
+             <Route path="/cart" component={CartPage} />
             <ProtectedRoute path="/admin/products" exact component={ManageProducts} />
             <ProtectedRoute path="/admin/products/edit/:id" component={EditProduct} />
             <ProtectedRoute path="/admin/users" component={ManageUsers} />

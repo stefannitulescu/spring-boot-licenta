@@ -15,12 +15,20 @@ class AuthService {
   static async login(loginData) {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/authenticate', loginData);
-      localStorage.setItem('access_token', response.data.access_token); // Store the access token
-      localStorage.setItem('refresh_token', response.data.refresh_token); // Store the refresh token
-      localStorage.setItem('user_email', loginData.email); // Store the user email
+      const accessToken = response.data.access_token;
+      const refreshToken = response.data.refresh_token;
 
+      // Decode the access token to get user information
+      const decodedToken = jwtDecode(accessToken);
+      const userId = decodedToken.userId;
+
+      // Store tokens and user information in local storage
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_token', refreshToken);
+      localStorage.setItem('user_email', loginData.email);
+      localStorage.setItem('user_id', userId);
       // Set the default Authorization header for axios
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
       return response.data;
     } catch (error) {
@@ -33,6 +41,7 @@ class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user_email');
+    localStorage.removeItem('user_id');
     delete axios.defaults.headers.common['Authorization'];
   }
 
@@ -42,6 +51,10 @@ class AuthService {
 
   static getUserEmail() {
     return localStorage.getItem('user_email');
+  }
+
+  static getUserId() {
+    return localStorage.getItem('user_id');
   }
 
   static isAuthenticated() {

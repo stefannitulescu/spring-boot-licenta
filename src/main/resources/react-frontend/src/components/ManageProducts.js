@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Button, Modal } from 'react-bootstrap';
-import { FaPen, FaTrash, FaEye } from 'react-icons/fa';
+import { Table, Button, Modal, Form, Alert } from 'react-bootstrap';
+import { FaPen, FaTrash, FaEye, FaPlus } from 'react-icons/fa';
 import ProductService from '../services/ProductService';
 import '../styles/ManageProducts.css';
 import { withRouter } from 'react-router-dom';
@@ -13,8 +13,17 @@ class ManageProducts extends React.Component {
       error: '',
       showModal: false,
       showDeleteModal: false,
+      showAddModal: false,
       modalDescription: '',
-      deleteProductId: null
+      deleteProductId: null,
+      newProduct: {
+        name: '',
+        category: '',
+        price: '',
+        stockQuantity: '',
+        description: ''
+      },
+      addError: ''
     };
   }
 
@@ -68,8 +77,49 @@ class ManageProducts extends React.Component {
     });
   }
 
+  handleAddShow = () => {
+    this.setState({ showAddModal: true });
+  }
+
+  handleAddClose = () => {
+    this.setState({
+      showAddModal: false,
+      newProduct: {
+        name: '',
+        category: '',
+        price: '',
+        stockQuantity: '',
+        description: ''
+      },
+      addError: ''
+    });
+  }
+
+  handleAddChange = (e) => {
+    const { name, value } = e.target;
+    this.setState(prevState => ({
+      newProduct: {
+        ...prevState.newProduct,
+        [name]: value
+      }
+    }));
+  }
+
+  handleAddSubmit = (e) => {
+    e.preventDefault();
+    ProductService.createProduct(this.state.newProduct)
+      .then(() => {
+        this.handleAddClose();
+        this.loadProducts(); // Reload products after addition
+      })
+      .catch(err => {
+        this.setState({ addError: 'Failed to add product.' });
+        console.error(err);
+      });
+  }
+
   render() {
-    const { products, error, showModal, showDeleteModal, modalDescription } = this.state;
+    const { products, error, showModal, showDeleteModal, showAddModal, modalDescription, newProduct, addError } = this.state;
 
     return (
       <div className="manage-products-container">
@@ -109,6 +159,9 @@ class ManageProducts extends React.Component {
             ))}
           </tbody>
         </Table>
+        <Button variant="primary" onClick={this.handleAddShow}>
+          <FaPlus /> Add Product
+        </Button>
 
         <Modal show={showModal} onHide={this.handleClose}>
           <Modal.Header closeButton>
@@ -135,6 +188,43 @@ class ManageProducts extends React.Component {
               Delete
             </Button>
           </Modal.Footer>
+        </Modal>
+
+        <Modal show={showAddModal} onHide={this.handleAddClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add New Product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {addError && <Alert variant="danger">{addError}</Alert>}
+            <Form onSubmit={this.handleAddSubmit}>
+              <Form.Group controlId="formName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" name="name" value={newProduct.name} onChange={this.handleAddChange} required />
+              </Form.Group>
+              <Form.Group controlId="formCategory">
+                <Form.Label>Category</Form.Label>
+                <Form.Control type="text" name="category" value={newProduct.category} onChange={this.handleAddChange} required />
+              </Form.Group>
+              <Form.Group controlId="formPrice">
+                <Form.Label>Price</Form.Label>
+                <Form.Control type="number" name="price" value={newProduct.price} onChange={this.handleAddChange} required />
+              </Form.Group>
+              <Form.Group controlId="formStockQuantity">
+                <Form.Label>Stock Quantity</Form.Label>
+                <Form.Control type="number" name="stockQuantity" value={newProduct.stockQuantity} onChange={this.handleAddChange} required />
+              </Form.Group>
+              <Form.Group controlId="formDescription">
+                <Form.Label>Description</Form.Label>
+                <Form.Control as="textarea" name="description" value={newProduct.description} onChange={this.handleAddChange} required />
+              </Form.Group>
+              <Button variant="primary" type="submit" block>
+                Add Product
+              </Button>
+              <Button variant="secondary" onClick={this.handleAddClose} block>
+                Cancel
+              </Button>
+            </Form>
+          </Modal.Body>
         </Modal>
       </div>
     );

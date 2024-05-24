@@ -83,6 +83,7 @@ public class OrderService {
                 .collect(Collectors.toList());
 
         OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
         orderDto.setOrderDate(order.getOrderDate());
         orderDto.setStatus(order.getStatus().toString());
         orderDto.setItems(itemDtos);
