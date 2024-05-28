@@ -51,7 +51,9 @@ const Navbar = ({ isAdmin, history }) => {
           )}
           {isAuthenticated ? (
             <>
-              <li className="navbar-item">{userEmail}</li>
+              <li className="navbar-item">
+                <Link to="/profile">{userEmail}</Link>
+              </li>
               <li className="navbar-item" onClick={handleLogout}>Logout</li>
               <li className="navbar-item">
                 <Link to="/cart" className="cart-icon-container">

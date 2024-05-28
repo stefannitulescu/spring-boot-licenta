@@ -1,4 +1,3 @@
-// src/pages/ProductDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProductService from '../services/ProductService';
@@ -34,7 +33,7 @@ function ProductDetails() {
 
     CartService.addToCart(userId, cartItem)
       .then(() => {
-        window.location.reload();
+        setSuccessMessage('Item added to cart.');
       })
       .catch(err => {
         setError('Failed to add item to cart.');
@@ -52,25 +51,35 @@ function ProductDetails() {
 
   return (
     <div className="product-details-container">
-      <img src={product.imageUrl || 'file2.png'} alt={product.name} />
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>Price: ${product.price}</p>
-      <p>Available: {product.stockQuantity}</p>
-      <div>
-        <label>Quantity:</label>
-        <input
-          type="number"
-          value={quantity}
-          min="1"
-          max={product.stockQuantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
+      <div className="product-image">
+        <img src={'/file2.png'} alt={product.name} />
       </div>
-      <button className="btn-add-to-cart" onClick={handleAddToCart}>
-        Add to Cart
-      </button>
-      {successMessage && <p className="success-message">{successMessage}</p>}
+      <div className="product-info">
+        <h1>{product.name}</h1>
+        <div className="detail">
+          <label>Price:</label>
+          <p>£{product.price}</p>
+        </div>
+        <div className="description-detail">
+          <label>Description:</label>
+          <p>{product.description}t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+        </div>
+        <div className="quantity-container">
+          <label htmlFor="quantity">Quantity:</label>
+          <input
+            type="number"
+            id="quantity"
+            value={quantity}
+            min="1"
+            max={product.stockQuantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+          />
+        </div>
+        <button className="btn-add-to-cart" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+      </div>
     </div>
   );
 }

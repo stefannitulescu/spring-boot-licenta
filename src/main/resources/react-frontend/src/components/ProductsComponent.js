@@ -25,7 +25,6 @@ function ProductsComponent() {
 
   return (
     <div>
-      <h1>Products</h1>
       {error && <p className="error">{error}</p>}
       <div className="products-container">
         {products.map((product, index) => (
@@ -37,7 +36,6 @@ function ProductsComponent() {
             <img src="file2.png" alt={product.name} /> 
             <div className="product-details">
               <h3>{product.name}</h3>
-              <p>{product.description || 'No description available'}</p>
               <p className="product-price">Price: ${product.price}</p>
               <p>Available: {product.stockQuantity}</p>
             </div>

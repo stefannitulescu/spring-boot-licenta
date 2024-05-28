@@ -1,0 +1,123 @@
+.product-details-container {
+    display: flex;
+    align-items: center;
+    padding: 30px 100px;
+    justify-content: center;
+    width: 100%; /* Use the whole screen width */
+    margin: 0 auto;
+  }
+  
+  .product-image {
+    flex: 1; /* Photo takes up 2/3 of the width */
+    padding-right: 40px; /* Increased padding */
+    display: flex;
+    justify-content: center;
+    align-items: right;
+  }
+  
+  .product-image img {
+    max-width: 100%;
+    max-height: auto; /* Make the image bigger */
+    border-radius: 10px;
+    align-items: right;
+
+  }
+  
+  .product-info {
+    flex: 1; /* Product info takes up 1/3 of the width */
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em; /* Increase font size */
+  }
+  
+  .product-info h1 {
+    font-size: 2.5em; /* Increase size for the product name */
+    margin-bottom: 20px;
+    text-align: left; /* Align to the left */
+  }
+  
+  .product-info .detail {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 20px;
+  }
+  
+  .product-info .detail label {
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: left; /* Align the label to the left */
+  }
+  
+  .product-info .detail p {
+    margin: 0;
+    text-align: left; /* Align the text to the left */
+    word-wrap: break-word; /* Ensure long words break */
+    inline-size: 150px;
+    overflow-wrap: break-word;
+  }
+  
+  .product-info .description-detail {
+    display: flex;
+    flex-direction: column; /* Stack label and description vertically */
+    margin-bottom: 20px;
+  }
+  
+  .product-info .description-detail label {
+    font-weight: bold;
+    text-align: left; /* Align the text to the left */
+
+    margin-bottom: 5px; /* Space between label and description */
+  }
+  
+  .product-info .description-detail p {
+    margin: 0;
+    text-align: justify; /* Align the text to the left */
+    word-wrap: break-word; /* Ensure long words break */
+  }
+  
+  .product-info .quantity-container {
+    display: flex;
+    align-items: right;
+    margin-top: 20px;
+  }
+  
+  .product-info .quantity-container label {
+    margin-right: 20px; /* Adjust margin for better spacing */
+    font-size: 1em;
+  }
+  
+  .product-info .quantity-container input {
+    width: 100px;
+    padding: 5px;
+    font-size: 1em;
+  }
+  
+  .btn-add-to-cart {
+    background-color: #28a745; /* Change button color to green */
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Increased padding for the button */
+    cursor: pointer;
+    font-size: 1.2em; /* Increased font size */
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+    width: 230px; /* Increased width */
+    text-align: center;
+  }
+  
+  .btn-add-to-cart:hover {
+    background-color: #218838;
+  }
+  
+  .error {
+    color: red;
+    font-size: 1em;
+  }
+  
+  .success-message {
+    color: green;
+    font-size: 1em;
+    margin-top: 10px;
+  }
+  

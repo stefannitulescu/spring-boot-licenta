@@ -1,0 +1,20 @@
+/* src/styles/UserProfile.css */
+.user-profile-container {
+    padding: 20px;
+  }
+  
+  .user-details {
+    margin-bottom: 20px;
+  }
+  
+  .orders-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .order-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  

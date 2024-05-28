@@ -10,6 +10,8 @@
 
 .navbar-logo img {
     height: 50px;
+    padding-left: 10px;
+    padding-right: 5px;
     width: auto; /* Adjusted to maintain aspect ratio */
     vertical-align: middle;
 }

@@ -14,6 +14,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ManageProducts from './components/ManageProducts';
 import ManageUsers from './components/ManageUsers';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import UserProfile from './pages/UserProfile';
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -63,6 +64,7 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
             <ProtectedRoute path="/admin/products" exact component={ManageProducts} />
             <ProtectedRoute path="/admin/products/edit/:id" component={EditProduct} />
             <ProtectedRoute path="/admin/users" component={ManageUsers} />
+            <Route path="/profile" component={UserProfile} />
           </Switch>
         </div>
       </Router>
