@@ -2,11 +2,12 @@
 import axios from 'axios';
 
 class OrderService {
-  static async convertCartToOrder(userId) {
+  static async convertCartToOrder(userId, address) {
     try {
-      const response = await axios.post(`http://localhost:8080/api/v1/orders/convert-cart/${userId}`, null, {
+      const response = await axios.post(`http://localhost:8080/api/v1/orders/convert-cart/${userId}`, address, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json', // Ensure the content type is set to JSON
         },
       });
       return response.data;
@@ -35,6 +36,7 @@ class OrderService {
       const response = await axios.put(`http://localhost:8080/api/v1/orders/${orderId}/update-status`, { status }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json', // Ensure the content type is set to JSON
         },
       });
       return response.data;

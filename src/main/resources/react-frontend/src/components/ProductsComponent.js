@@ -12,6 +12,7 @@ function ProductsComponent() {
     ProductService.getAllProducts()
       .then(data => {
         setProducts(data);
+        console.log(data);
       })
       .catch(err => {
         setError('Failed to retrieve products.');
@@ -33,7 +34,7 @@ function ProductsComponent() {
             className="product-card"
             onClick={() => handleProductClick(product.id)}
           >
-            <img src="file2.png" alt={product.name} /> 
+            <img src={product.imageUrl} alt={product.name} /> 
             <div className="product-details">
               <h3>{product.name}</h3>
               <p className="product-price">Price: ${product.price}</p>

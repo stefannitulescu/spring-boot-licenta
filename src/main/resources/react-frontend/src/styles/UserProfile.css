@@ -1,20 +1,130 @@
 /* src/styles/UserProfile.css */
 .user-profile-container {
-    padding: 20px;
-  }
-  
-  .user-details {
-    margin-bottom: 20px;
-  }
-  
-  .orders-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .order-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
+  padding: 20px 200px;
+  max-width: 100%;
+}
+
+.user-details,
+.orders-list,
+.new-address-form,
+.address-details {
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.error {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}
+
+.new-address-form input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn-add-address {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.btn-add-address:hover {
+  background-color: #45a049;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically */
+  gap: 20px;
+  align-items: center; /* Center align the cards */
+}
+
+.order-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%; /* Set width to 75% for a 50% increase from 50% */
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effects */
+}
+
+.order-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.order-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.order-card p {
+  margin: 5px 0;
+}
+
+.order-card ul {
+  padding-left: 20px;
+  list-style: none; /* Remove default list styling */
+}
+
+.order-card ul li {
+  margin-bottom: 5px; /* Add margin between list items */
+  font-weight: 400; /* Normal font weight */
+}
+
+.address-details p {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.new-address-form input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 80%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Rounded corners */
+  transition: border-color 0.2s; /* Smooth border transition */
+}
+
+.new-address-form input:focus {
+  border-color: #4CAF50; /* Highlight border on focus */
+}
+
+.btn-add-address {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.btn-add-address:hover {
+  background-color: #45a049;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.address-details {
+  background: #f9f9f9;
+  padding: 10px;
+  width: 80%;
+
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

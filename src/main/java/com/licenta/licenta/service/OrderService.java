@@ -1,5 +1,6 @@
 package com.licenta.licenta.service;
 
+import com.licenta.licenta.data.dto.AddressDto;
 import com.licenta.licenta.data.dto.OrderDto;
 import com.licenta.licenta.data.dto.OrderItemDto;
 import com.licenta.licenta.data.entity.*;
@@ -20,18 +21,21 @@ public class OrderService {
     private final CartItemsRepo cartItemsRepo;
     private final CartsRepo cartsRepo;
     private final OrderItemsRepo orderItemsRepo;
+    private final AddressesRepo addressesRepo;
 
     @Autowired
     public OrderService(OrdersRepo ordersRepo, CartItemsRepo cartItemsRepo,
-                        CartsRepo cartsRepo, OrderItemsRepo orderItemsRepo) {
+                        CartsRepo cartsRepo, OrderItemsRepo orderItemsRepo,
+                        AddressesRepo addressesRepo) {
         this.ordersRepo = ordersRepo;
         this.cartItemsRepo = cartItemsRepo;
         this.cartsRepo = cartsRepo;
         this.orderItemsRepo = orderItemsRepo;
+        this.addressesRepo = addressesRepo;
     }
 
     @Transactional
-    public OrderDto convertCartToOrder(UUID userId) {
+    public OrderDto convertCartToOrder(UUID userId, AddressDto addressDto) {
         Cart cart = cartsRepo.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart not found for user with id: " + userId));
 
@@ -39,6 +43,20 @@ public class OrderService {
         order.setUser(cart.getUser());
         order.setOrderDate(OffsetDateTime.now());
         order.setStatus(OrderStatus.PREPARING); // assuming you have this status defined
+
+        Address address;
+        if (addressDto != null) {
+            address = new Address();
+            address.setStreet(addressDto.getStreet());
+            address.setCity(addressDto.getCity());
+            address.setState(addressDto.getState());
+            address.setZipCode(addressDto.getZipCode());
+            address.setCountry(addressDto.getCountry());
+            addressesRepo.save(address);
+        } else {
+            address = cart.getUser().getAddress();
+        }
+        order.setAddress(address);
         ordersRepo.save(order);
 
         List<OrderItem> orderItems = cart.getItems().stream().map(cartItem -> {
@@ -78,7 +96,7 @@ public class OrderService {
     }
 
     private OrderDto convertOrderToDto(Order order) {
-        List<OrderItemDto> itemDtos = order.getItems().stream()  // Use the correct method name
+        List<OrderItemDto> itemDtos = order.getItems().stream()
                 .map(this::convertOrderItemToDto)
                 .collect(Collectors.toList());
 
@@ -88,7 +106,7 @@ public class OrderService {
         orderDto.setStatus(order.getStatus().toString());
         orderDto.setItems(itemDtos);
         double total = itemDtos.stream()
-                .mapToDouble(item -> item.getPrice() * item.getQuantity()) // Price multiplied by quantity
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();
 
         orderDto.setTotal(total);
