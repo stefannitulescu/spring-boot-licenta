@@ -28,7 +28,13 @@ const UserProfile = () => {
         setUserDetails(userDetails);
 
         const orders = await OrderService.getOrdersByUserId(userId);
-        setOrders(orders);
+
+        // Assign sequential order numbers
+        const updatedOrders = orders.map((order, index) => ({
+          ...order,
+          orderNumber: index + 1
+        }));
+        setOrders(updatedOrders);
 
         const address = await AddressService.getAddressById(userId);
         setAddress(address);
@@ -74,17 +80,24 @@ const UserProfile = () => {
         <p>Loading user details...</p>
       )}
 
-      <h2>Your Orders</h2>
+      <h2 className="section-title">Your Orders</h2>
       {orders.length === 0 ? (
         <p>You have no orders.</p>
       ) : (
         <div className="orders-list">
           {orders.map((order) => (
             <div key={order.id} className="order-card">
-              <h3>Order ID: {order.id}</h3>
+              <span className="order-number">Order #{order.orderNumber}</span>
+              <p>
+                Date: {`${new Date(order.orderDate).getDate()} ${
+                  ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"][
+                    new Date(order.orderDate).getMonth()
+                  ]
+                } ${new Date(order.orderDate).getFullYear()}, ${new Date(order.orderDate).getHours()}:${
+                  new Date(order.orderDate).getMinutes().toString().padStart(2, "0")
+                }`}
+              </p>
               <p>Status: {order.status}</p>
-              <p>Order Date: {new Date(order.orderDate).toLocaleDateString()}</p>
-              <p>Total: ${order.total.toFixed(2)}</p>
               <ul>
                 {order.items.map((item, index) => (
                   <li key={index}>
@@ -92,12 +105,13 @@ const UserProfile = () => {
                   </li>
                 ))}
               </ul>
+              <p>Total: ${order.total.toFixed(2)}</p>
             </div>
           ))}
         </div>
       )}
 
-      <h2>Your Address</h2>
+      <h2 className="section-title">Your Address</h2>
       {address ? (
         <div className="address-details">
           <p>{address.street}, {address.city}, {address.state}, {address.zipCode}, {address.country}</p>

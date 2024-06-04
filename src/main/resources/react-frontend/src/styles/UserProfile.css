@@ -1,7 +1,16 @@
 /* src/styles/UserProfile.css */
 .user-profile-container {
-  padding: 20px 200px;
-  max-width: 100%;
+  font-family: 'Arial', sans-serif; 
+  padding: 30px;
+  max-width: 1200px; /* Increased width */
+  margin: 0 auto;    
+  background-color: #f4f4f4; 
+  border-radius: 10px; 
+}
+
+.section-title {
+  color: #333; 
+  margin-bottom: 20px;
 }
 
 .user-details,
@@ -23,9 +32,16 @@
 .new-address-form input {
   display: block;
   margin-bottom: 10px;
-  padding: 8px;
-  width: 100%;
+  padding: 10px;
+  width: 100%; /* Full container width */ 
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  transition: border-color 0.2s; 
+}
+
+.new-address-form input:focus {
+  border-color: #4CAF50; 
 }
 
 .btn-add-address {
@@ -34,19 +50,21 @@
   color: white;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.2s;
+  border-radius: 5px; 
 }
 
 .btn-add-address:hover {
   background-color: #45a049;
+  transform: translateY(-2px); 
 }
 
 .orders-list {
   display: flex;
-  flex-direction: column; /* Stack cards vertically */
-  gap: 20px;
-  align-items: center; /* Center align the cards */
+  flex-direction: row; /* Arrange cards horizontally */
+  flex-wrap: wrap;    /* Allow wrapping to next line if needed */
+  gap: 20px;          /* Spacing between cards */
+  justify-content: center; /* Center the cards horizontally */
 }
 
 .order-card {
@@ -55,13 +73,17 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  width: 100%; /* Set width to 75% for a 50% increase from 50% */
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effects */
+  width: 100%; /* Take up full width of container */
+  max-width: 1000px;
+  transition: transform 0.2s, box-shadow 0.2s; 
+  border: 1px solid #ddd;
+  display: flex; /* Enable flexbox for vertical layout */
+  flex-direction: column; 
 }
 
 .order-card:hover {
-  transform: translateY(-5px); /* Slight lift on hover */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-5px); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
 }
 
 .order-card h3 {
@@ -76,12 +98,12 @@
 
 .order-card ul {
   padding-left: 20px;
-  list-style: none; /* Remove default list styling */
+  list-style: none; 
 }
 
 .order-card ul li {
-  margin-bottom: 5px; /* Add margin between list items */
-  font-weight: 400; /* Normal font weight */
+  margin-bottom: 5px; 
+  font-weight: 400; 
 }
 
 .address-details p {
@@ -90,41 +112,22 @@
   border-radius: 5px;
 }
 
-.new-address-form input {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  width: 80%;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px; /* Rounded corners */
-  transition: border-color 0.2s; /* Smooth border transition */
-}
-
-.new-address-form input:focus {
-  border-color: #4CAF50; /* Highlight border on focus */
-}
-
-.btn-add-address {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-  border-radius: 5px; /* Rounded corners */
-}
-
-.btn-add-address:hover {
-  background-color: #45a049;
-  transform: translateY(-2px); /* Slight lift on hover */
-}
-
+.new-address-form,
 .address-details {
   background: #f9f9f9;
   padding: 10px;
-  width: 80%;
-
+  width: 100%; /* Full container width */
   border-radius: 5px;
   margin-bottom: 20px;
+}
+
+.order-number {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.order-total { /* Style for price display */
+  margin-top: auto; /* Push to bottom */
+  font-weight: bold;
 }

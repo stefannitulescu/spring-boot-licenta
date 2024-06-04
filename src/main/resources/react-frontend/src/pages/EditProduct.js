@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Button, Container, Row, Col, Alert, Card } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import ProductService from '../services/ProductService';
+import UploadService from '../services/UploadService';
 
 class EditProduct extends React.Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class EditProduct extends React.Component {
       price: product.price || '',
       stockQuantity: product.stockQuantity || '',
       description: product.description || '',
+      imageFile: null,
+      imageUrl: product.imageUrl || '',
       error: '',
       success: ''
     };
@@ -23,19 +26,28 @@ class EditProduct extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleFileChange = (e) => {
+    this.setState({ imageFile: e.target.files[0] });
+  }
+
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const { id, name, category, price, stockQuantity, description } = this.state;
-    console.log("update ", id, { name, category, price, stockQuantity, description })
-    ProductService.updateProduct(id, { name, category, price, stockQuantity, description })
-      .then(() => {
-        this.setState({ success: 'Product updated successfully.' });
-        this.props.history.push('/admin/products');
-      })
-      .catch(err => {
-        this.setState({ error: 'Failed to update product.' });
-        console.error(err);
-      });
+    const { id, name, category, price, stockQuantity, description, imageFile } = this.state;
+
+    try {
+      let imageUrl = this.state.imageUrl;
+      if (imageFile) {
+        const uploadResponse = await UploadService.uploadImage(imageFile);
+        imageUrl = uploadResponse.data;
+      }
+
+      await ProductService.updateProduct(id, { name, category, price, stockQuantity, description, imageUrl });
+      this.setState({ success: 'Product updated successfully.' });
+      this.props.history.push('/admin/products');
+    } catch (err) {
+      this.setState({ error: 'Failed to update product.' });
+      console.error(err);
+    }
   }
 
   render() {
@@ -70,6 +82,10 @@ class EditProduct extends React.Component {
                   <Form.Group controlId="formDescription">
                     <Form.Label className="text-left">Description</Form.Label>
                     <Form.Control as="textarea" name="description" value={description} onChange={this.handleChange} required />
+                  </Form.Group>
+                  <Form.Group controlId="formImage">
+                    <Form.Label className="text-left">Image</Form.Label>
+                    <Form.Control type="file" onChange={this.handleFileChange} />
                   </Form.Group>
                   <Button variant="primary" type="submit" block>
                     Update Product

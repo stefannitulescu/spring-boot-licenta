@@ -1,0 +1,56 @@
+/* src/styles/CheckoutPage.css */
+.checkout-container {
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .checkout-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .checkout-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .checkout-container .card-element-wrapper {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+  }
+  
+  .StripeElement {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .checkout-container .error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .checkout-container .success {
+    color: green;
+    margin-bottom: 10px;
+  }
+  
+  .checkout-container button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .checkout-container button:hover {
+    background-color: #45a049;
+  }
+  

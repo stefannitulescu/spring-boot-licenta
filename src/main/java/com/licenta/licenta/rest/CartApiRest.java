@@ -2,6 +2,7 @@ package com.licenta.licenta.rest;
 
 import com.licenta.licenta.data.dto.CartDto;
 import com.licenta.licenta.data.dto.CartItemDto;
+import com.licenta.licenta.data.dto.UpdateCartItemDto;
 import com.licenta.licenta.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class CartApiRest {
     }
 
     @PutMapping("/{userId}/update/{cartItemId}")
-    public ResponseEntity<CartDto> updateCartItem(@PathVariable UUID userId, @PathVariable UUID cartItemId, @RequestBody int quantity) {
-        CartDto cartDto = cartService.updateCartItem(userId, cartItemId, quantity);
+    public ResponseEntity<CartDto> updateCartItem(@PathVariable UUID userId, @PathVariable UUID cartItemId, @RequestBody UpdateCartItemDto updateCartItemDto) {
+        CartDto cartDto = cartService.updateCartItem(userId, cartItemId, updateCartItemDto.getQuantity());
         return ResponseEntity.ok(cartDto);
     }
 

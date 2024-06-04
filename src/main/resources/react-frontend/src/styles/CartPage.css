@@ -67,3 +67,21 @@
 .btn-convert-to-order:hover {
   background-color: #45a049;
 }
+
+.cart-item-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-item-actions button {
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cart-item-actions button:hover {
+  background-color: #e0e0e0;
+}

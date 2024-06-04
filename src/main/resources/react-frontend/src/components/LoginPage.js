@@ -48,7 +48,7 @@ function Login({ history }) {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary btn-login">Login</button>
+        <button type="submit" className="btn-primary btn-login">Login</button>
       </form>
       <div className="register-link">
         Don't have an account? <Link to="/register">Register</Link>

@@ -1,20 +1,17 @@
+// src/components/ProtectedRoute.js
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated, isAdmin } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Route
       {...rest}
       render={props =>
         isAuthenticated ? (
-          isAdmin ? (
-            <Component {...props} />
-          ) : (
-            <div>Unauthorized Access</div> // You can customize this message or redirect to another page
-          )
+          <Component {...props} />
         ) : (
           <Redirect to="/login" />
         )

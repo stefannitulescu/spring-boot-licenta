@@ -21,8 +21,10 @@ class CartService {
       const response = await axios.put(`http://localhost:8080/api/v1/carts/${userId}/update/${cartItemId}`, { quantity }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json', // Ensure the content type is set to JSON
         },
       });
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error updating cart item:', error);
@@ -50,6 +52,7 @@ class CartService {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
       });
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching cart:', error);

@@ -46,10 +46,11 @@ public class AddressService {
     public AddressDto getAddressByUserId(UUID userId) {
         User user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Address address = user.getAddress();
-        if (address == null) {
-            throw new RuntimeException("Address not found for user with id: " + userId);
+        if (address != null) {
+            return convertToDto(address);
+        } else {
+            return null;
         }
-        return convertToDto(address);
     }
 
     private AddressDto convertToDto(Address address) {

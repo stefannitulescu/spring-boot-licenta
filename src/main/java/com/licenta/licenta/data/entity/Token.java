@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "tokens")
 public class Token extends BaseEntity{
-    @Column(unique = true)
+    @Column(unique = true, length = 2000)
     public String token;
 
     @Enumerated(EnumType.STRING)

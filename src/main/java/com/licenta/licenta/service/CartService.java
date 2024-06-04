@@ -125,8 +125,15 @@ public class CartService {
 
 
     public CartDto getCartByUserId(UUID userId) {
-        Cart cart = cartsRepo.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Cart not found for user with id: " + userId));
+        Cart cart = cartsRepo.findByUserId(userId).orElse(null);
+        User user = usersRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        if (cart == null) {
+            // If not, create a new cart, save it, and set it to the user
+            cart = new Cart();
+            cart.setUser(user);
+            cart.setItems(new ArrayList<>());
+            cart = cartsRepo.save(cart); // Save the cart to give it an ID
+        }
         return convertCartToDto(cart);
     }
 
@@ -139,6 +146,7 @@ public class CartService {
 
     private CartItemDto convertCartItemToDto(CartItem cartItem) {
         CartItemDto dto = new CartItemDto();
+        dto.setId(cartItem.getId());
         dto.setProductName(cartItem.getProduct().getName());
         dto.setPrice(cartItem.getProduct().getPrice());
         dto.setQuantity(cartItem.getQuantity());

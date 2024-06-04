@@ -11,6 +11,7 @@ import EditProduct from './pages/EditProduct';
 import ProductsComponent from './components/ProductsComponent';
 import FilterSidebar from './components/FilterSidebar';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import ManageProducts from './components/ManageProducts';
 import ManageUsers from './components/ManageUsers';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -53,17 +54,20 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route exact  path="/products">
-              <div className="products-page">
-                <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
-                <ProductsComponent filters={filters} />
-              </div>
-            </Route>
-            <Route path="/products/:id" component={ProductDetails} />
-             <Route path="/cart" component={CartPage} />
-            <ProtectedRoute path="/admin/products" exact component={ManageProducts} />
-            <ProtectedRoute path="/admin/products/edit/:id" component={EditProduct} />
-            <ProtectedRoute path="/admin/users" component={ManageUsers} />
+            <ProtectedRoute 
+              exact path="/products"
+              component={() => (
+                <div className="products-page">
+                  <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
+                  <ProductsComponent filters={filters} />
+                </div>
+              )} 
+            />
+            <ProtectedRoute path="/products/:id" component={ProductDetails} />
+            <ProtectedRoute path="/cart" component={CartPage} />
+            <AdminRoute path="/admin/products" exact component={ManageProducts} />
+            <AdminRoute path="/admin/products/edit/:id" component={EditProduct} />
+            <AdminRoute path="/admin/users" component={ManageUsers} />
             <Route path="/profile" component={UserProfile} />
           </Switch>
         </div>

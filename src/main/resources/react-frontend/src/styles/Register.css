@@ -1,6 +1,7 @@
 .register-container {
   background-color: white;
-  max-width: 350px;
+  width: 80%;           /* Set a percentage width for responsiveness */
+  max-width: 400px;      /* Limit the maximum width for larger screens */
   margin: 50px auto;
   padding: 30px 30px 20px; /* Adjust padding to give more space at the top and less at the bottom */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly darker shadow for better emphasis */
@@ -44,20 +45,20 @@
   outline: none;
 }
 
-.btn-create-account {
-  background-color: #007bff;
+.btn-create-account-register {
+  background-color: #28a745;
   color: white;
   border: none;
   padding: 12px; /* More padding for a better button size */
-  width: 100%;
+  width: 80%;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px; /* Add margin above the button for spacing */
 }
 
-.btn-create-account:hover {
-  background-color: #0056b3;
+.btn-create-account-register:hover {
+  background-color: #218838;
 }
 
 .login-link {
@@ -67,7 +68,7 @@
 }
 
 .login-link a {
-  color: #007bff;
+  color: #28a745;
   text-decoration: none;
 }
 
