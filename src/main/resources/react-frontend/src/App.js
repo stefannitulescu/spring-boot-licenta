@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -14,40 +14,27 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import ManageProducts from './components/ManageProducts';
 import ManageUsers from './components/ManageUsers';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { FilterProvider } from './contexts/FilterContext';
 import UserProfile from './pages/UserProfile';
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [filters, setFilters] = useState({});
-
-  const handleSortChange = (sortOrder) => {
-    setFilters((prev) => ({ ...prev, sortOrder }));
-  };
-
-  const handleFilterChange = (key, value) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
-  };
-
   return (
     <AuthProvider>
-      <MainApp 
-        handleSortChange={handleSortChange} 
-        handleFilterChange={handleFilterChange} 
-        filters={filters} 
-      />
+      <FilterProvider>
+        <MainApp />
+      </FilterProvider>
     </AuthProvider>
   );
 }
 
-function MainApp({ handleSortChange, handleFilterChange, filters }) {
-  const { isAdmin } = useAuth();
-
+function MainApp() {
   return (
     <div className="App">
       <Router>
-        <Navbar isAdmin={isAdmin} />
+        <Navbar />
         <div className="content-area">
           <Switch>
             <Route exact path="/" component={Landing} />
@@ -58,8 +45,8 @@ function MainApp({ handleSortChange, handleFilterChange, filters }) {
               exact path="/products"
               component={() => (
                 <div className="products-page">
-                  <FilterSidebar onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
-                  <ProductsComponent filters={filters} />
+                  <FilterSidebar />
+                  <ProductsComponent />
                 </div>
               )} 
             />

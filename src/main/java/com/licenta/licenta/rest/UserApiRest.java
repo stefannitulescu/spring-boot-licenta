@@ -28,6 +28,14 @@ public class UserApiRest {
         return ResponseEntity.ok(products); // 200 OK with the list of products
     }
 
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')") // Adjust role checking as needed
+    public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
+        UserDto user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
+
+    }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {

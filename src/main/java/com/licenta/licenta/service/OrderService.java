@@ -48,8 +48,9 @@ public class OrderService {
         if (addressDto != null) {
             address = new Address();
             address.setStreet(addressDto.getStreet());
+            address.setNumber(addressDto.getNumber());
             address.setCity(addressDto.getCity());
-            address.setState(addressDto.getState());
+            address.setCounty(addressDto.getCounty());
             address.setZipCode(addressDto.getZipCode());
             address.setCountry(addressDto.getCountry());
             addressesRepo.save(address);

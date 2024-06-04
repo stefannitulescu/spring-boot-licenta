@@ -6,8 +6,18 @@ public class CartItemDto {
     private UUID id;
     private UUID productId;
     private String productName;
+
+    private String imageUrl;
     private double price;
     private int quantity;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public UUID getId() {
         return id;

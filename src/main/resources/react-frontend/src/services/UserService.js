@@ -16,6 +16,21 @@ class UserService {
     }
   }
 
+  static async getUser(id) {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/v1/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error getting user:', error);
+      throw error;
+    }
+  }
+
   static async deleteUser(id) {
     try {
       await axios.delete(`http://localhost:8080/api/v1/users/${id}`, {

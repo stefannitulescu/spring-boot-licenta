@@ -98,16 +98,20 @@ const CartPage = () => {
         <ul className="cart-items-list">
           {cartItems.map((item, index) => (
             <li key={index} className="cart-item">
-              <div>
+              <img src={item.imageUrl} alt={item.productName} />
+              <div className="cart-item-info">
                 <h3>{item.productName}</h3>
-                <p>Price: ${item.price}</p>
-                <p>Quantity: {item.quantity}</p>
-                <div className="cart-item-actions">
-                  <button onClick={() => handleUpdateCartItem(item.id, item.quantity + 1)}>+</button>
-                  <button onClick={() => handleUpdateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-                  <button onClick={() => handleRemoveCartItem(item.id)}>Remove</button>
-                </div>
+                <p>{item.description}</p>
               </div>
+              <div className="cart-item-quantity">
+                <button onClick={() => handleUpdateCartItem(item.id, item.quantity + 1)}>+</button>
+                <span>{item.quantity}</span>
+                <button onClick={() => handleUpdateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
+              </div>
+              <div className="cart-item-price">
+                <p>${item.price * item.quantity}</p>
+              </div>
+              <button className="cart-item-remove" onClick={() => handleRemoveCartItem(item.id)}>Remove</button>
             </li>
           ))}
         </ul>
@@ -126,7 +130,7 @@ const CartPage = () => {
             </label>
             {userAddress && (
               <div className="address-details">
-                <p>{`${userAddress.street}, ${userAddress.city}, ${userAddress.state}, ${userAddress.zipCode}, ${userAddress.country}`}</p>
+                <p>{`${userAddress.street} ${userAddress.number}, ${userAddress.city}, ${userAddress.county}, ${userAddress.zipCode}, ${userAddress.country}`}</p>
               </div>
             )}
 
@@ -150,6 +154,13 @@ const CartPage = () => {
                 />
                 <input
                   type="text"
+                  name="number"
+                  placeholder="Number"
+                  value={newAddress.number}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
                   name="city"
                   placeholder="City"
                   value={newAddress.city}
@@ -157,16 +168,9 @@ const CartPage = () => {
                 />
                 <input
                   type="text"
-                  name="state"
-                  placeholder="State"
-                  value={newAddress.state}
-                  onChange={handleInputChange}
-                />
-                <input
-                  type="text"
-                  name="zipCode"
-                  placeholder="Zip Code"
-                  value={newAddress.zipCode}
+                  name="county"
+                  placeholder="County"
+                  value={newAddress.county}
                   onChange={handleInputChange}
                 />
                 <input
@@ -174,6 +178,13 @@ const CartPage = () => {
                   name="country"
                   placeholder="Country"
                   value={newAddress.country}
+                  onChange={handleInputChange}
+                />
+                <input
+                  type="text"
+                  name="zipCode"
+                  placeholder="Zip Code"
+                  value={newAddress.zipCode}
                   onChange={handleInputChange}
                 />
               </div>

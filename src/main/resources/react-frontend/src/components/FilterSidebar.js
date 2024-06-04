@@ -1,24 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/FilterSidebar.css';
+import CategoryService from '../services/CategoryService';
+import { useFilter } from '../contexts/FilterContext';
 
-function FilterSidebar({ onSortChange, onFilterChange }) {
+function FilterSidebar() {
+  const [categories, setCategories] = useState([]);
+  const { filters, updateSortOrder, updateCategory } = useFilter();
+
+  useEffect(() => {
+    CategoryService.getAllCategories()
+      .then(setCategories)
+      .catch(console.error);
+  }, []);
+
+  const handleSortChange = (e) => {
+    updateSortOrder(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    updateCategory(e.target.value);
+  };
+
   return (
     <div className="filter-sidebar">
       <h3>Filter & Sort</h3>
       <div>
         <label>Sort by Price:</label>
-        <select onChange={(e) => onSortChange(e.target.value)}>
+        <select value={filters.sortOrder} onChange={handleSortChange}>
           <option value="low-high">Low to High</option>
           <option value="high-low">High to Low</option>
         </select>
       </div>
       <div>
-        <label>Max Price:</label>
-        <input
-          type="number"
-          placeholder="Max price"
-          onChange={(e) => onFilterChange('maxPrice', e.target.value)}
-        />
+        <label>Category:</label>
+        <select value={filters.category} onChange={handleCategoryChange}>
+          <option value="">All</option>
+          {categories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

@@ -59,6 +59,19 @@ public class UserService {
 
         usersRepo.deleteById(id);
     }
+    public UserDto getUserById(UUID id) {
+        Optional<User> userOptional = usersRepo.findById(id);
+        if(userOptional.get() != null) {
+            User user = userOptional.get();
+            UserDto userDto = new UserDto();
+            userDto.setRole(user.getRole().getCode().name());
+            userDto.setFirstName(user.getFirstName());
+            userDto.setLastName(user.getLastName());
+            return userDto;
+        } else {
+            return null;
+        }
+    }
 
     public User createUser(final RegisterUserDto dto) {
         User user = new User();

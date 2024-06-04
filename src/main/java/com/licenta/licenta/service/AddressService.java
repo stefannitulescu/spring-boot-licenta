@@ -31,8 +31,9 @@ public class AddressService {
         }
 
         address.setStreet(addressDto.getStreet());
+        address.setNumber(addressDto.getNumber());
         address.setCity(addressDto.getCity());
-        address.setState(addressDto.getState());
+        address.setCounty(addressDto.getCounty());
         address.setZipCode(addressDto.getZipCode());
         address.setCountry(addressDto.getCountry());
 
@@ -54,6 +55,7 @@ public class AddressService {
     }
 
     private AddressDto convertToDto(Address address) {
-        return new AddressDto(address.getId(), address.getStreet(), address.getCity(), address.getState(), address.getZipCode(), address.getCountry());
+        return new AddressDto(address.getId(), address.getStreet(), address.getNumber(), address.getCity(),
+                address.getCounty(), address.getCountry(), address.getZipCode());
     }
 }

@@ -147,6 +147,8 @@ public class CartService {
     private CartItemDto convertCartItemToDto(CartItem cartItem) {
         CartItemDto dto = new CartItemDto();
         dto.setId(cartItem.getId());
+        dto.setImageUrl(cartItem.getProduct().getImageUrl());
+        dto.setProductId(cartItem.getProduct().getId());
         dto.setProductName(cartItem.getProduct().getName());
         dto.setPrice(cartItem.getProduct().getPrice());
         dto.setQuantity(cartItem.getQuantity());

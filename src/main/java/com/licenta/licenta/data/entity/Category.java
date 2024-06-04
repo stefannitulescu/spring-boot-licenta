@@ -14,6 +14,9 @@ public class Category extends BaseEntity {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "imageUrl", length = 1000)
+    private String imageUrl;
+
     @Column(name = "description", length = 2500)
     private String description;
 
@@ -31,6 +34,15 @@ public class Category extends BaseEntity {
     }
 
     // Getters and Setters
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }

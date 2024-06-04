@@ -114,7 +114,7 @@ const UserProfile = () => {
       <h2 className="section-title">Your Address</h2>
       {address ? (
         <div className="address-details">
-          <p>{address.street}, {address.city}, {address.state}, {address.zipCode}, {address.country}</p>
+          <p>{address.street} {address.number}, {address.city}, {address.county}, {address.country}, {address.zipCode}</p>
         </div>
       ) : (
         <p>No address on file.</p>
@@ -132,6 +132,14 @@ const UserProfile = () => {
         />
         <input
           type="text"
+          name="number"
+          placeholder="Number"
+          value={newAddress.number}
+          onChange={handleAddressChange}
+          required
+        />
+        <input
+          type="text"
           name="city"
           placeholder="City"
           value={newAddress.city}
@@ -140,17 +148,9 @@ const UserProfile = () => {
         />
         <input
           type="text"
-          name="state"
-          placeholder="State"
-          value={newAddress.state}
-          onChange={handleAddressChange}
-          required
-        />
-        <input
-          type="text"
-          name="zipCode"
-          placeholder="Zip Code"
-          value={newAddress.zipCode}
+          name="county"
+          placeholder="County"
+          value={newAddress.county}
           onChange={handleAddressChange}
           required
         />
@@ -159,6 +159,14 @@ const UserProfile = () => {
           name="country"
           placeholder="Country"
           value={newAddress.country}
+          onChange={handleAddressChange}
+          required
+        />
+        <input
+          type="text"
+          name="zipCode"
+          placeholder="Zip Code"
+          value={newAddress.zipCode}
           onChange={handleAddressChange}
           required
         />

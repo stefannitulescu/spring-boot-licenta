@@ -2,7 +2,16 @@ package com.licenta.licenta.data.dto;
 
 public class CategoryDto {
     private String name;
+    private String imageUrl;
     private String description;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getName() {
         return name;

@@ -2,9 +2,10 @@
 .user-profile-container {
   font-family: 'Arial', sans-serif; 
   padding: 30px;
+  width: 100%;
   max-width: 1200px; /* Increased width */
-  margin: 0 auto;    
-  background-color: #f4f4f4; 
+  margin: 20px auto;    
+  background-color: #a9f7ac; 
   border-radius: 10px; 
 }
 
@@ -33,9 +34,8 @@
   display: block;
   margin-bottom: 10px;
   padding: 10px;
-  width: 100%; /* Full container width */ 
   box-sizing: border-box;
-  border: 1px solid #ccc;
+  border: 1px solid #ddffdd;
   border-radius: 5px; 
   transition: border-color 0.2s; 
 }
@@ -56,7 +56,6 @@
 
 .btn-add-address:hover {
   background-color: #45a049;
-  transform: translateY(-2px); 
 }
 
 .orders-list {
@@ -68,7 +67,7 @@
 }
 
 .order-card {
-  background: white;
+  background: #e7ffeb;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -82,8 +81,8 @@
 }
 
 .order-card:hover {
-  transform: translateY(-5px); 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 15px rgba(79, 219, 79, 0.15); 
 }
 
 .order-card h3 {
@@ -107,17 +106,19 @@
 }
 
 .address-details p {
-  background: #f9f9f9;
-  padding: 10px;
   border-radius: 5px;
+  margin-top: 10px;
+  padding-top: 8px;
+  align-self: center;
 }
 
 .new-address-form,
 .address-details {
-  background: #f9f9f9;
+  background: #ddffdd;
   padding: 10px;
-  width: 100%; /* Full container width */
-  border-radius: 5px;
+  width: 70%;
+  margin: auto; /* Full container width */
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 

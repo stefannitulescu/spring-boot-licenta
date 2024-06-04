@@ -7,7 +7,10 @@ import com.licenta.licenta.exception.CategoryNotFoundException;
 import com.licenta.licenta.repo.CategoriesRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 public class CategoryService {
     private final CategoriesRepo categoriesRepo;
@@ -23,6 +26,7 @@ public class CategoryService {
         Category category = new Category();
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
+        category.setImageUrl(categoryDto.getImageUrl()); // Set image URL
         category = categoriesRepo.save(category);
         return convertToDto(category);
     }
@@ -32,6 +36,7 @@ public class CategoryService {
                 .orElseThrow(() -> new CategoryNotFoundException("Category with id " + id + " does not exist"));
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
+        category.setImageUrl(categoryDto.getImageUrl()); // Set image URL
         category = categoriesRepo.save(category);
         return convertToDto(category);
     }
@@ -42,10 +47,15 @@ public class CategoryService {
         categoriesRepo.delete(category);
     }
 
+    public List<CategoryDto> getAllCategories() {
+        return categoriesRepo.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
     private CategoryDto convertToDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setName(category.getName());
         categoryDto.setDescription(category.getDescription());
+        categoryDto.setImageUrl(category.getImageUrl()); // Set image URL in DTO
         return categoryDto;
     }
 }
