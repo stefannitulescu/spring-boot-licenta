@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import ProductService from '../services/ProductService';
 import '../styles/ProductsComponent.css';
 import { useFilter } from '../contexts/FilterContext';
+import { Badge } from 'react-bootstrap';
 
 function ProductsComponent() {
   const [products, setProducts] = useState([]);
@@ -44,6 +45,21 @@ function ProductsComponent() {
     history.push(`/products/${id}`);
   };
 
+  const getBadgeClass = (type) => {
+    switch (type) {
+      case 'ORGANIC':
+        return 'badge-organic';
+      case 'BIO':
+        return 'badge-bio';
+      case 'NATURAL':
+        return 'badge-natural';
+      case 'CONVENTIONAL':
+        return 'badge-conventional';
+      default:
+        return 'badge-default';
+    }
+  };
+
   return (
     <div>
       {error && <p className="error">{error}</p>}
@@ -54,6 +70,9 @@ function ProductsComponent() {
             className="product-card"
             onClick={() => handleProductClick(product.id)}
           >
+            <span className={`badge ${getBadgeClass(product.productType)}`}>
+              {product.productType}
+            </span>
             <img src={product.imageUrl} alt={product.name} />
             <div className="product-details">
               <h3>{product.name}</h3>

@@ -13,9 +13,9 @@ import java.util.UUID;
 public interface ProductsRepo extends JpaRepository<Product, UUID> {
     // Additional custom methods can be added here
 
-    @Query("select new com.licenta.licenta.data.dto.ProductDto(p.id, p.name, p.description, p.category.name, p.imageUrl, p.price, p.stockQuantity) from Product p")
+    @Query("select new com.licenta.licenta.data.dto.ProductDto(p.id, p.name, p.description, p.category.name, p.imageUrl, p.price, p.stockQuantity, p.productType) from Product p")
     List<ProductDto> findAllProducts();
 
-    @Query("select new com.licenta.licenta.data.dto.ProductDto(p.id, p.name, p.description, p.category.name, p.imageUrl, p.price, p.stockQuantity) from Product p where p.id = :id")
+    @Query("select new com.licenta.licenta.data.dto.ProductDto(p.id, p.name, p.description, p.category.name, p.imageUrl, p.price, p.stockQuantity, p.productType) from Product p where p.id = :id")
     Optional<ProductDto> findProductById(@Param("id") UUID id);
 }

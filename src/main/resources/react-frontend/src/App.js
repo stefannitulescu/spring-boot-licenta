@@ -14,6 +14,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import ManageProducts from './components/ManageProducts';
 import ManageUsers from './components/ManageUsers';
+import ManageOrders from './components/ManageOrders'; // Import the new component
 import { AuthProvider } from './contexts/AuthContext';
 import { FilterProvider } from './contexts/FilterContext';
 import UserProfile from './pages/UserProfile';
@@ -55,6 +56,7 @@ function MainApp() {
             <AdminRoute path="/admin/products" exact component={ManageProducts} />
             <AdminRoute path="/admin/products/edit/:id" component={EditProduct} />
             <AdminRoute path="/admin/users" component={ManageUsers} />
+            <Route path="/manage-orders" component={ManageOrders} roles={['ROLE_DEPOSIT_MANAGER']} />
             <Route path="/profile" component={UserProfile} />
           </Switch>
         </div>

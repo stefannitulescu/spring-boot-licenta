@@ -15,7 +15,6 @@ function ProductDetails() {
   useEffect(() => {
     ProductService.getProductById(id)
       .then(data => {
-        console.log(data);
         setProduct(data);
       })
       .catch(err => {
@@ -42,6 +41,21 @@ function ProductDetails() {
       });
   };
 
+  const getBadgeClass = (type) => {
+    switch (type) {
+      case 'ORGANIC':
+        return 'badge-organic';
+      case 'BIO':
+        return 'badge-bio';
+      case 'NATURAL':
+        return 'badge-natural';
+      case 'CONVENTIONAL':
+        return 'badge-conventional';
+      default:
+        return 'badge-default';
+    }
+  };
+
   if (error) {
     return <p className="error">{error}</p>;
   }
@@ -54,6 +68,9 @@ function ProductDetails() {
     <div className="product-details-container">
       <div className="product-image">
         <img src={"/" + product.imageUrl} alt={product.name} />
+        <span className={`badge ${getBadgeClass(product.productType)} badge-details`}>
+          {product.productType}
+        </span>
       </div>
       <div className="product-info">
         <h1>{product.name}</h1>
@@ -64,6 +81,10 @@ function ProductDetails() {
         <div className="description-detail">
           <label>Description:</label>
           <p>{product.description}</p>
+        </div>
+        <div className="detail detail-type">
+          <label>Type:</label>
+          <p>{product.productType}</p>
         </div>
         <div className="quantity-container">
           <label htmlFor="quantity">Quantity:</label>

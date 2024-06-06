@@ -2,10 +2,12 @@ package com.licenta.licenta.service;
 
 import com.licenta.licenta.data.dto.RegisterUserDto;
 import com.licenta.licenta.data.dto.UserDto;
+import com.licenta.licenta.data.entity.Cart;
 import com.licenta.licenta.data.entity.User;
 import com.licenta.licenta.data.enums.RoleEnum;
 import com.licenta.licenta.exception.RestApiException;
 import com.licenta.licenta.exception.UserNotFoundException;
+import com.licenta.licenta.repo.CartsRepo;
 import com.licenta.licenta.repo.RolesRepo;
 import com.licenta.licenta.repo.TokensRepo;
 import com.licenta.licenta.repo.UsersRepo;
@@ -25,11 +27,14 @@ public class UserService {
     private final TokensRepo tokensRepo;
     private final RolesRepo rolesRepo;
 
-    public UserService(UsersRepo usersRepo, PasswordEncoder passwordEncoder, TokensRepo tokensRepo, RolesRepo rolesRepo) {
+    private final CartsRepo cartsRepo;
+
+    public UserService(UsersRepo usersRepo, PasswordEncoder passwordEncoder, TokensRepo tokensRepo, RolesRepo rolesRepo, CartsRepo cartsRepo) {
         this.usersRepo = usersRepo;
         this.passwordEncoder = passwordEncoder;
         this.tokensRepo = tokensRepo;
         this.rolesRepo = rolesRepo;
+        this.cartsRepo = cartsRepo;
     }
 
     public Optional<User> getUserByEmail(String email) {
@@ -55,8 +60,12 @@ public class UserService {
             throw new UserNotFoundException("User with id " + id + " does not exist");
         }
 
+        Cart cart = cartsRepo.findByUserId(id).orElse(null);
+        if (cart != null && !cart.getItems().isEmpty()) {
+            throw new IllegalStateException("Cannot delete user with a non-empty cart");
+        }
+        cartsRepo.delete(cart);
         tokensRepo.deleteByUserId(id);
-
         usersRepo.deleteById(id);
     }
     public UserDto getUserById(UUID id) {

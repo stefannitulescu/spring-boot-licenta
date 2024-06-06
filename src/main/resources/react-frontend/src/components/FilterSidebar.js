@@ -23,7 +23,6 @@ function FilterSidebar() {
 
   return (
     <div className="filter-sidebar">
-      <h3>Filter & Sort</h3>
       <div>
         <label>Sort by Price:</label>
         <select value={filters.sortOrder} onChange={handleSortChange}>

@@ -6,6 +6,10 @@ import java.util.UUID;
 
 public class OrderDto {
     private UUID id;
+
+    private String userEmail;
+
+    private String userName;
     private OffsetDateTime orderDate;
     private String status;
     private List<OrderItemDto> items;
@@ -49,5 +53,21 @@ public class OrderDto {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

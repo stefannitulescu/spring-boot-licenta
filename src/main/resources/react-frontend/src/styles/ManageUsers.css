@@ -2,19 +2,36 @@
   padding: 20px 150px;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
+.title-add-container {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.users-table {
-  width: 100%;
+.page-title {
+  margin: 0;
 }
 
-.users-table th, .users-table td {
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.filter-field:last-child {
+  margin-right: 0;
+}
+
+.users-table th,
+.users-table td {
   text-align: left;
 }
 
 .mr-2 {
-  margin-right: 8px; /* Adjust margin as needed */
+  margin-right: 8px;
 }

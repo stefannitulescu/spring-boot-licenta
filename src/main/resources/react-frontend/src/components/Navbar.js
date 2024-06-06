@@ -1,15 +1,16 @@
 // src/components/Navbar.js
 import React, { useEffect, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { FaShoppingCart } from 'react-icons/fa';
 import '../styles/Navbar.css';
 import CartService from '../services/CartService';
 import AuthService from '../services/AuthService';
 
-const Navbar = ({ isAdmin, history }) => {
-  const { isAuthenticated, userEmail, logout } = useAuth();
+const Navbar = () => {
+  const { isAuthenticated, userEmail, logout, isAdmin, isDepositManager } = useAuth();
   const [cartItemCount, setCartItemCount] = useState(0);
+  const history = useHistory();
 
   const handleLogout = () => {
     logout();
@@ -48,6 +49,9 @@ const Navbar = ({ isAdmin, history }) => {
                 <li><Link to="/admin/users" className="navbar-item">Manage Users</Link></li>
               </>
             )}
+            {isDepositManager && (
+              <li><Link to="/manage-orders" className="navbar-item">Manage Orders</Link></li>
+            )}
           </ul>
         </div>
         <div className="navbar-right">
@@ -78,4 +82,4 @@ const Navbar = ({ isAdmin, history }) => {
   );
 };
 
-export default withRouter(Navbar);
+export default Navbar;

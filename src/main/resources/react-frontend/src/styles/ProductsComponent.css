@@ -13,9 +13,9 @@
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-radius: 15px; /* Add border radius */
   overflow: hidden; /* Hide overflow */
+  position: relative; /* To position the badge */
 }
 
 .product-card img {
@@ -23,7 +23,7 @@
   height: 250px; /* Increase height for a larger image */
   padding-top: 10px;
   object-fit: cover;
-  border-radius: 22px;
+  border-radius: 15px 15px 0 0; /* Rounded corners for the top */
   transition: transform 0.2s;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .product-details {
-  padding: 20px 0px; /* Reduced padding to fit content within square */
+  padding: 10px 0px; /* Reduced padding to fit content within square */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,4 +61,41 @@
   font-weight: 450;
   font-size: 17px;
   text-align: left;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: transform 0.2s;
+}
+
+/* Custom badge colors */
+.badge-organic {
+  background-color: #a9ab88; /* Green */
+}
+
+.badge-bio {
+  background-color: #84a44c; /* Orange */
+}
+
+.badge-natural {
+  background-color: #8bc34a; /* Light Green */
+}
+
+.badge-conventional {
+  background-color: #f6c653; /* Blue */
+}
+
+.badge-default {
+  background-color: #757575; /* Grey */
+}
+
+/* Hover effect for the badge */
+.product-card:hover .badge {
+  transform: translateY(-1.5px); /* Ascend the badge a little */
 }

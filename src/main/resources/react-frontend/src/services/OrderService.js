@@ -59,6 +59,20 @@ class OrderService {
       throw error;
     }
   }
+
+  static async getAllOrders() {
+    try {
+      const response = await axios.get('http://localhost:8080/api/v1/orders/', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching all orders:', error);
+      throw error;
+    }
+  }
 }
 
 export default OrderService;

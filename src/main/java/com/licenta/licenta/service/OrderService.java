@@ -42,7 +42,7 @@ public class OrderService {
         Order order = new Order();
         order.setUser(cart.getUser());
         order.setOrderDate(OffsetDateTime.now());
-        order.setStatus(OrderStatus.PREPARING); // assuming you have this status defined
+        order.setStatus(OrderStatus.PREPARING);
 
         Address address;
         if (addressDto != null) {
@@ -65,13 +65,13 @@ public class OrderService {
             orderItem.setOrder(order);
             orderItem.setProduct(cartItem.getProduct());
             orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getProduct().getPrice()); // Or use a price service if pricing varies
+            orderItem.setPrice(cartItem.getProduct().getPrice());
             return orderItem;
         }).collect(Collectors.toList());
 
         orderItemsRepo.saveAll(orderItems);
-        order.setItems(orderItems);  // Use the correct method name
-        cartsRepo.delete(cart); // Optionally, delete or clear the cart after conversion
+        order.setItems(orderItems);
+        cartsRepo.delete(cart);
 
         return convertOrderToDto(order);
     }
@@ -80,6 +80,11 @@ public class OrderService {
         Order order = ordersRepo.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + orderId));
         return convertOrderToDto(order);
+    }
+
+    public List<OrderDto> getAllOrders() {
+        List<Order> orders = ordersRepo.findAll();
+        return orders.stream().map(this::convertOrderToDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -106,6 +111,11 @@ public class OrderService {
         orderDto.setOrderDate(order.getOrderDate());
         orderDto.setStatus(order.getStatus().toString());
         orderDto.setItems(itemDtos);
+
+        User user = order.getUser();
+        orderDto.setUserEmail(user.getEmail());
+        orderDto.setUserName(user.getFirstName() + " " + user.getLastName());
+
         double total = itemDtos.stream()
                 .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();

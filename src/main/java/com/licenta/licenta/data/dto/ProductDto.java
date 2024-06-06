@@ -1,5 +1,7 @@
 package com.licenta.licenta.data.dto;
 
+import com.licenta.licenta.data.enums.ProductType;
+
 import java.util.UUID;
 
 public class ProductDto {
@@ -10,12 +12,11 @@ public class ProductDto {
     private String imageUrl;
     private double price;
     private int stockQuantity;
-    private String categoryName;
-    public ProductDto() {
+    private String productType;
 
-    };
+    public ProductDto() {}
 
-    public ProductDto(UUID id, String name, String description, String category, String imageUrl, double price, int stockQuantity) {
+    public ProductDto(UUID id, String name, String description, String category, String imageUrl, double price, int stockQuantity, ProductType productType) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -23,8 +24,10 @@ public class ProductDto {
         this.imageUrl = imageUrl;
         this.price = price;
         this.stockQuantity = stockQuantity;
+        this.productType = productType != null ? productType.name() : null;
     }
 
+    // Getters and Setters
     public UUID getId() {
         return id;
     }
@@ -81,11 +84,11 @@ public class ProductDto {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 }

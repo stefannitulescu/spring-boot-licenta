@@ -15,6 +15,7 @@ class EditProduct extends React.Component {
       price: product.price || '',
       stockQuantity: product.stockQuantity || '',
       description: product.description || '',
+      productType: product.productType || '',
       imageFile: null,
       imageUrl: product.imageUrl || '',
       error: '',
@@ -32,7 +33,7 @@ class EditProduct extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { id, name, category, price, stockQuantity, description, imageFile } = this.state;
+    const { id, name, category, price, stockQuantity, description, productType, imageFile } = this.state;
 
     try {
       let imageUrl = this.state.imageUrl;
@@ -41,7 +42,7 @@ class EditProduct extends React.Component {
         imageUrl = uploadResponse.data;
       }
 
-      await ProductService.updateProduct(id, { name, category, price, stockQuantity, description, imageUrl });
+      await ProductService.updateProduct(id, { name, category, price, stockQuantity, description, productType, imageUrl });
       this.setState({ success: 'Product updated successfully.' });
       this.props.history.push('/admin/products');
     } catch (err) {
@@ -51,7 +52,7 @@ class EditProduct extends React.Component {
   }
 
   render() {
-    const { name, category, price, stockQuantity, description, error, success } = this.state;
+    const { name, category, price, stockQuantity, description, productType, error, success } = this.state;
 
     return (
       <Container className="mt-5">
@@ -70,6 +71,16 @@ class EditProduct extends React.Component {
                   <Form.Group controlId="formCategory">
                     <Form.Label className="text-left">Category</Form.Label>
                     <Form.Control type="text" name="category" value={category} onChange={this.handleChange} required />
+                  </Form.Group>
+                  <Form.Group controlId="formProductType">
+                    <Form.Label className="text-left">Product Type</Form.Label>
+                    <Form.Control as="select" name="productType" value={productType} onChange={this.handleChange} required>
+                      <option value="">Select Type</option>
+                      <option value="BIO">Bio</option>
+                      <option value="ORGANIC">Organic</option>
+                      <option value="NATURAL">Natural</option>
+                      <option value="CONVENTIONAL">Conventional</option>
+                    </Form.Control>
                   </Form.Group>
                   <Form.Group controlId="formPrice">
                     <Form.Label className="text-left">Price</Form.Label>

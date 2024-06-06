@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(AuthService.isAuthenticated());
   const [userEmail, setUserEmail] = useState(AuthService.getUserEmail());
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isDepositManager, setIsDepositManager] = useState(false); // Add state for deposit manager
 
   useEffect(() => {
     const token = AuthService.getAccessToken();
@@ -17,6 +18,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       setUserEmail(email);
       setIsAdmin(role === 'ROLE_ADMIN'); // adjust role check as needed
+      setIsDepositManager(role === 'ROLE_DEPOSIT_MANAGER'); // adjust role check as needed
     }
   }, []);
 
@@ -26,6 +28,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
     setUserEmail(AuthService.getUserEmail());
     setIsAdmin(role === 'ROLE_ADMIN'); // adjust role check as needed
+    setIsDepositManager(role === 'ROLE_DEPOSIT_MANAGER'); // adjust role check as needed
   };
 
   const logout = () => {
@@ -33,10 +36,11 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUserEmail(null);
     setIsAdmin(false);
+    setIsDepositManager(false); // Reset deposit manager state
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userEmail, isAdmin, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, userEmail, isAdmin, isDepositManager, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

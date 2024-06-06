@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, Button, Modal, Alert } from 'react-bootstrap';
-import { FaPen, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
+import { Table, Button, Modal, Alert, Form } from 'react-bootstrap';
+import { FaPen, FaTrash } from 'react-icons/fa';
 import UserService from '../services/UserService';
 import '../styles/ManageUsers.css';
 
@@ -9,6 +9,9 @@ class ManageUsers extends React.Component {
     super(props);
     this.state = {
       users: [],
+      filteredUsers: [],
+      search: '',
+      sortOption: 'name-asc',
       error: '',
       showDeleteModal: false,
       deleteUserId: null,
@@ -23,12 +26,41 @@ class ManageUsers extends React.Component {
   loadUsers = () => {
     UserService.getAllUsers()
       .then(data => {
-        this.setState({ users: data });
+        this.setState({ users: data, filteredUsers: data });
       })
       .catch(err => {
         this.setState({ error: 'Failed to retrieve users.' });
         console.error(err);
       });
+  }
+
+  handleSearchChange = (e) => {
+    this.setState({ search: e.target.value }, this.filterAndSortUsers);
+  }
+
+  handleSortChange = (e) => {
+    this.setState({ sortOption: e.target.value }, this.filterAndSortUsers);
+  }
+
+  filterAndSortUsers = () => {
+    const { users, search, sortOption } = this.state;
+    let filtered = users.filter(user =>
+      user.firstName.toLowerCase().includes(search.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(search.toLowerCase()) ||
+      user.email.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const [sortField, sortDirection] = sortOption.split('-');
+    filtered.sort((a, b) => {
+      const fieldA = sortField === 'name' ? `${a.firstName} ${a.lastName}` : a[sortField];
+      const fieldB = sortField === 'name' ? `${b.firstName} ${b.lastName}` : b[sortField];
+
+      if (fieldA < fieldB) return sortDirection === 'asc' ? -1 : 1;
+      if (fieldA > fieldB) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.setState({ filteredUsers: filtered });
   }
 
   handleDeleteShow = (id) => {
@@ -46,18 +78,41 @@ class ManageUsers extends React.Component {
         this.loadUsers(); // Reload users after deletion
       })
       .catch(err => {
-        this.setState({ deleteError: err.response.data.message || 'Failed to delete user.' });
+        this.setState({ deleteError: err.response.data.message || 'Failed to delete user because it has an active cart/orders.' });
         console.error(err);
       });
   }
 
   render() {
-    const { users, error, showDeleteModal, deleteError } = this.state;
+    const { filteredUsers, error, showDeleteModal, deleteError } = this.state;
 
     return (
       <div className="manage-users-container">
-        <h1>Manage Users</h1>
+        <div className="title-add-container">
+          <h1 className="page-title">Manage Users</h1>
+        </div>
+
         {error && <Alert variant="danger">{error}</Alert>}
+        <div className="filters-container">
+          <Form.Group controlId="searchName" className="filter-field">
+            <Form.Label>Search by Name or Email:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter name or email"
+              value={this.state.search}
+              onChange={this.handleSearchChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="sortOption" className="filter-field">
+            <Form.Label>Sort by:</Form.Label>
+            <Form.Control as="select" value={this.state.sortOption} onChange={this.handleSortChange}>
+              <option value="name-asc">Name (A-Z)</option>
+              <option value="name-desc">Name (Z-A)</option>
+              <option value="email-asc">Email (A-Z)</option>
+              <option value="email-desc">Email (Z-A)</option>
+            </Form.Control>
+          </Form.Group>
+        </div>
         <Table striped bordered hover className="users-table">
           <thead>
             <tr>
@@ -69,7 +124,7 @@ class ManageUsers extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {filteredUsers.map((user, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{user.firstName} {user.lastName}</td>

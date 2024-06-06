@@ -1,23 +1,22 @@
 .product-details-container {
   display: flex;
+  background-color: #f5f5f5;
   align-items: center;
-  padding: 30px 100px;
+  padding: 2% 1%  10% 3%;
   justify-content: center;
-  width: 100%; /* Use the whole screen width */
-  margin: 0 auto;
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 10px;
 }
 
 .product-image {
-  flex: 1; /* Photo takes up 2/3 of the width */
-  padding-right: 40px; /* Increased padding */
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Center the image vertically */
+  margin-right: 100px;
+  position: relative; /* To position the badge */
 }
 
 .product-image img {
   width: 500px; /* Set a fixed width */
-  height: 400px; /* Set a fixed height */
+  height: 480px; /* Set a fixed height */
   object-fit: cover; /* Cover the container without stretching */
   border-radius: 10px;
 }
@@ -37,7 +36,7 @@
 
 .product-info .detail {
   display: flex;
-  align-items: baseline;
+  align-items: center; /* Center items vertically */
   margin-bottom: 20px;
 }
 
@@ -117,4 +116,53 @@
   color: green;
   font-size: 1em;
   margin-top: 10px;
+}
+
+.detail-type {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.badge-details {
+  padding: 5px 10px !important;
+  align-self: start !important;
+  border-radius: 3px !important;
+  margin-left: 10px; /* Adjust if necessary */
+}
+
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+/* Top right text */
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+/* Bottom right text */
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -1,5 +1,6 @@
 package com.licenta.licenta.data.entity;
 
+import com.licenta.licenta.data.enums.ProductType;
 import jakarta.persistence.*;
 
 @Entity
@@ -25,18 +26,23 @@ public class Product extends BaseEntity {
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "product_type")
+    private ProductType productType;
+
     // Constructors
     public Product() {
         super();
     }
 
-    public Product(String name, String description, double price, String imageUrl, Category category, int stockQuantity) {
+    public Product(String name, String description, double price, String imageUrl, Category category, int stockQuantity, ProductType productType) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageUrl = imageUrl;
         this.category = category;
         this.stockQuantity = stockQuantity;
+        this.productType = productType;
     }
 
     // Getters and Setters
@@ -86,5 +92,13 @@ public class Product extends BaseEntity {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 }

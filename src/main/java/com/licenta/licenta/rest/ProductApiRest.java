@@ -27,14 +27,14 @@ public class ProductApiRest {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')") // Adjust role checking as needed
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'DEPOSIT_MANAGER')") // Adjust role checking as needed
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         List<ProductDto> products = productService.getAllProducts();
         return ResponseEntity.ok(products); // 200 OK with the list of products
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT')") // Adjust role checking as needed
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENT', 'DEPOSIT_MANAGER')") // Adjust role checking as needed
     public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id) {
         ProductDto product = productService.getProductById(id);
         return ResponseEntity.ok(product); // 200 OK with the product
